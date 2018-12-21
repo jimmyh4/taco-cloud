@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+
+<body>
+<h1>Design your taco!</h1>
+<img th:src="@{/images/TacoCloud.jpg}"/>
+
+<!-- POST data goes into design bean? -->
+<!--th:each iterates over a collection of elements
+and renders the HTML once for each item in the col.-->
+<form method="POST" th:object="${design}">
+    <div class="grid">
+        <div class="ingredient-group" id="wraps">
+            <h3>Choose a wrap:</h3>
+            <div th:each="ingredient : ${wrap}">
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"/>
+                <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+            </div>
+
+        </div>
+
+        <div class="ingredient-group" id="veggies">
+            <h3>Pick some veggies:</h3>
+            <div th:each="ingredient : ${veggies}">
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"/>
+                <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+            </div>
+
+        </div>
+
+        <div class="ingredient-group" id="protein">
+            <h3>Pick a protein:</h3>
+            <div th:each="ingredient: ${protein}">
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"/>
+                <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+            </div>
+        </div>
+
+        <div class="ingredient-group" id="sauce">
+            <h3>Choose a sauce:</h3>
+            <div th:each="ingredient: ${sauce}">
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"/>
+                <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+            </div>
+        </div>
+    </div>
+
+    <!-- *{} is a selection expression. They are similar to variable expressions ${},
+    except they are executed on the previously selected object, rather than on all selected variables
+    from the context map. -->
+
+    <div>
+        <h3>What should your taco be called?: </h3>
+        <input type="text" th:field="*{name}"/>
+        <br/>
+
+        <button>Submit your taco!</button>
+    </div>
+</form>
+</body>
+</html>
