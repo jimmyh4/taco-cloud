@@ -1,4 +1,4 @@
-package tacos;
+package tacos.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -36,11 +36,15 @@ public class DesignTacoController {
         return new Taco();
     }
 
-    // Model objects "ferry" data between the controller and to whatever view is responsible for rendering
-    // that data
+    /* Model objects "ferry" data between the controller and to whatever view is responsible for rendering
+     that data
+     The model object being ferried around the design
+     controller is a Taco object (the data in taco specifically)? */
+
     @GetMapping
     public String showDesignForm (Model model)
     {
+        // Hardcoding a list of ingredients for now, use a DB later
         List<Ingredient> ingredients = Arrays.asList(
 
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
@@ -55,6 +59,7 @@ public class DesignTacoController {
                 new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
         );
 
+
         Type[] types = Ingredient.Type.values();
         for (Type type : types){
 
@@ -63,11 +68,19 @@ public class DesignTacoController {
 
         model.addAttribute("design", new Taco());
 
+        /* At this point, model has these kinds of attributes:
+            * Key: (For each ingredient type) Ingredient.Type (lowercased),
+             * Value: List of ingredients pertaining to that Ing. type
+            * Key: "design", Value: Taco object
+         */
         return "design";
     }
 
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type){
 
+        /* Filter generates a list of ingredients, whose type
+        matches the Type passed to the argument
+         */
         return ingredients.stream()
                 .filter(x -> x.getType().equals(type))
                 .collect(Collectors.toList());
