@@ -1,0 +1,70 @@
+<!-- tag::allButValidation[] -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+
+<body>
+
+<!-- th:object - Model object being used to collect form data
+     th:action - Directs the form to POST (or whatever form method is being used) to the
+                 "endpoint" (/orders)
+     th:field - Fields from the model object -->
+
+<!-- sends (POST) data (order object/model) to /orders (endpoint) -->
+<!-- @{} - URI link expression for thymeleaf, ${} variable expression -->
+<form method="POST" th:action="@{/orders}" th:object="${order}">
+    <h1> Order your amazing taco creations!</h1>
+
+    <img th:src="@{/images/TacoCloud.jpg}"/>
+    <a th:href="@{/design}" id="designanothertaco"> Design another taco?</a><br/>
+
+    <!-- Fill out this part later for validation
+    <div th:if="${#fields.hasErrors()}"> -->
+
+    <!-- If user clicks within label element, it toggles control. label FOR also explicitly
+    says that out loud for screen readers. Good for accessibility. -->
+
+    <h3>Please deliver my taco masterpieces to...</h3>
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}"/>
+    <br/>
+
+    <label for="street">Street: </label>
+    <input type="text" th:field="*{street}"/>
+    <br/>
+
+    <label for="city">City: </label>
+    <input type="text" th:field="*{city}"/>
+    <br/>
+
+    <label for="state">State: </label>
+    <input type="text" th:field="*{state}"/>
+    <br/>
+
+    <label for="zip">Zip Code: </label>
+    <input type="text" th:field="*{zip}"/>
+    <br/>
+
+    <h3>Here's how I'll pay...</h3>
+    <label for="ccNumber">Credit Card #: </label>
+    <input type="text" th:field="*{ccNumber}"/>
+    <br/>
+
+    <label for="ccExpiration">Expiration: </label>
+    <input type="text" th:field="*{ccExpiration}"/>
+    <br/>
+
+    <label for="ccCVV">CVV: </label>
+    <input type="text" th:field="*{ccCVV}"/>
+    <br/>
+
+    <input type="submit" value="Submit order"/>
+</form>
+
+</body>
+</html>
+<!-- end::allButValidation[] -->

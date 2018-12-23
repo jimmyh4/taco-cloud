@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
@@ -41,6 +42,20 @@ public class DesignTacoController {
      The model object being ferried around the design
      controller is a Taco object (the data in taco specifically)? */
 
+    /* On design page, once ingredients are selected
+    and taco is named and submitted (POST), user is redirected
+    to "orders/current" view (via OrderController)
+     */
+    @PostMapping
+    public String processDesign(Taco design){
+
+        log.info("Processing design: " + design);
+
+        // Redirects user's browsers to relative path
+        return "redirect:/orders/current";
+    }
+
+    /* For get /design requests, show user design view. */
     @GetMapping
     public String showDesignForm (Model model)
     {
